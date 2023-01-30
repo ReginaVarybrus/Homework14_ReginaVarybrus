@@ -1,0 +1,34 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.main__div {
+    width: 500px;
+    height: 100%;
+}
+.div__item {
+    margin: 8px;
+    padding: 5px;
+    background: #a5cad2;
+    color: #758eb7;
+    width: 500px;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.div__item:hover {
+    background: #758eb7;
+    color: #a5cad2;
+}
+.paginations {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    margin: 8px;
+}
+.div__item ul {
+    list-style-type: none;
+}
