@@ -7,7 +7,7 @@ const btnNext = document.getElementById('next');
 
 let numPage = document.getElementById('page');
 
-function makeData(data) {
+function dataOutput(data) {
     personagesList.innerHTML = "";
     for (let items of Object.values(data)) {
         if (Array.isArray(items)) {
@@ -36,33 +36,32 @@ function makeData(data) {
 let page = `https://rickandmortyapi.com/api/character?page=1`;
 let state = null;
 
-async function getCharacters (pageUrl) {
+async function getData (pageUrl) {
     const responce = await fetch(pageUrl);
     const data = await responce.json();
     state = data;
-    makeData(data);
+    dataOutput(data);
 }
-getCharacters(page);
+getData(page);
 
-function pagination (pageNum) {
-    const urlParams = new URL(pageNum);
+function pagination (pageUrl) {
+    const urlParams = new URL(pageUrl);
     const currentPage = urlParams.searchParams.get('page');
     numPage.innerHTML = currentPage;
+    btnNext.disabled = false;
+    btnPrev.disabled = true;
     if (currentPage > 1) {
         btnPrev.disabled = false;
     }
     if (currentPage == 42) {
         btnNext.disabled = true;
     } 
-    if (currentPage < 42) {
-        btnNext.disabled = false;
-    } 
     return numPage.innerHTML;
 }
 
 btnNext.addEventListener('click', () => {
     page = state.info.next;
-    getCharacters(page);
+    getData(page);
     pagination(page);
     // console.log('page number', pagination(page));
     // console.log('state next', state);
@@ -70,7 +69,7 @@ btnNext.addEventListener('click', () => {
 
 btnPrev.addEventListener('click', () => {
     page = state.info.prev;
-    getCharacters(page);
+    getData(page);
     pagination(page);
     // console.log('page number', pagination(page));
     // console.log('state prev', state);
