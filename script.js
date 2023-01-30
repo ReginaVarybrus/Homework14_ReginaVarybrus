@@ -47,14 +47,6 @@ getCharacters(page);
 function pagination (pageNum) {
     const urlParams = new URL(pageNum);
     const currentPage = urlParams.searchParams.get('page');
-    return currentPage;
-}
-
-btnNext.addEventListener('click', () => {
-    page = state.info.next;
-    getCharacters(page);
-    const urlParams = new URL(page);
-    const currentPage = urlParams.searchParams.get('page');
     numPage.innerHTML = currentPage;
     if (currentPage > 1) {
         btnPrev.disabled = false;
@@ -62,17 +54,26 @@ btnNext.addEventListener('click', () => {
     if (currentPage == 42) {
         btnNext.disabled = true;
     } 
-    console.log('state next', state);
+    if (currentPage < 42) {
+        btnNext.disabled = false;
+    } 
+    return numPage.innerHTML;
+}
+
+btnNext.addEventListener('click', () => {
+    page = state.info.next;
+    getCharacters(page);
+    pagination(page);
+    // console.log('page number', pagination(page));
+    // console.log('state next', state);
 });
 
 btnPrev.addEventListener('click', () => {
     page = state.info.prev;
     getCharacters(page);
-    const urlParams = new URL(page);
-    const currentPage = urlParams.searchParams.get('page');
-    numPage.innerHTML = currentPage;
-    
-    console.log('state prev', state);
+    pagination(page);
+    // console.log('page number', pagination(page));
+    // console.log('state prev', state);
 });
 
 
